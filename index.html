@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="socket.io/socket.io.js"></script>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+    body, html{
+        width: 100vw;
+        height: 100vh;
+    }
+    body{
+        background-color: rgba(0, 0, 0);
+    }
+    h2{
+        color: white;
+        text-transform: uppercase;
+        margin: 30px 0;
+    }
+    #main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #chat{
+        width: 60vw;
+        height: 70vh;
+        border-radius: 10px;
+        background-color: rgb(194, 192, 192);
+        font-size: 1.3em;
+        padding: 20px 20px;
+    }
+    #message{
+        resize: none;
+        width: 50vw;
+        height: 10vh;
+        font-size: 1.4em;
+        outline: none;
+        border: none;
+        margin-top: 20px;
+        border-radius: 10px;
+        margin-right: 15px;
+        padding-left: 15px;
+        padding-top: 10px;
+        background-color: rgb(165, 164, 164);
+        color: black;
+    }
+    .form{
+        display: flex;
+    }
+    button{
+        border: none;
+        outline: none;
+        width: 150px;
+        height: 50px;
+        cursor: pointer;
+        border-radius: 15em;
+        margin-top: 30px;
+        background-color: rgba(8, 120, 247, 0.952);
+        font-weight: 700;
+        color: white;
+        font-size: 1em;
+    }
+    button:hover{
+        background-color: rgba(61, 61, 224, 0.863);
+        color: white;
+    }
+    #name-user{
+        width: 40vw;
+        height: 6vh;
+        font-size: 1.3em;
+        border: none;
+        outline: none;
+        padding-left: 20px;
+        background-color: rgb(178, 178, 179);
+        margin: 20px 0;
+        border-radius: 10px
+    }
+    #icon{
+        display: none;
+    }
+    @media only screen and (max-width: 600px){
+        h2{
+            font-size: 1.9em;
+            margin: 20px 0;
+        }
+        #chat{
+            border-radius: 15px;
+            width: 95vw;
+            height: 75vh;
+            background-color: rgb(211, 212, 211);
+        }
+        #message{
+            width: 85vw;
+            height: 7vh;
+        }
+        button{
+            width: 30px;
+            height: 7vh;
+            margin-top: 20px;
+        }
+        #icon{
+            display: block;
+        }
+        #msg-button{
+            display: none;
+        }
+        #name-user{
+            width: 80vw;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div>
+            <input type="text" placeholder="Nome/Usuário" id="name-user">
+        </div>
+        <div id="chat">
+
+        </div>
+        <div class="form">
+            <textarea id="message"></textarea>
+            <button onclick="enviarMensagem()"><i id="icon" class="material-icons">chevron_right</i><span id="msg-button">Enviar Mensagem</span></button>
+        </div>
+    </div>
+    <script>
+        const socket = io.connect()
+        const name = document.getElementById("name-user")
+        const message = document.getElementById("message")
+        const chat = document.getElementById("chat")
+
+        function enviarMensagem(){
+            const nameValue = name.value
+            const messageValue = message.value
+            const obj = {
+                author: nameValue,
+                msg: messageValue
+            }
+
+            showMessage(obj)
+            socket.emit("msgs", obj)
+        }
+        socket.on("sendMessage", (messages)=>{
+            showMessage(messages)
+        })
+        function showMessage(mensagem){
+            const html = `<p><span><b>${mensagem.author}:</b></span> ${mensagem.msg}</p>`
+            chat.insertAdjacentHTML("beforeend", html)
+        }
+    </script>
+</body>
+</html>
