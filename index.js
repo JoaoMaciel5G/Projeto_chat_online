@@ -2,12 +2,13 @@ const express = require("express")
 const app = express()
 const http = require("http")
 const server = http.createServer(app)
-
 const io = require("socket.io")(server)
+const bodyParser = require("body-parser")
+const { rota } = require("./check-name")
 
-app.get("/", (request, response)=>{
-    response.sendFile(__dirname+"/index.html")
-})
+app.use(express.static("public"))
+app.use(rota)
+
 io.on("connection", (socket)=>{
     socket.on("msgs", (data)=>{
         socket.broadcast.emit("sendMessage", data)

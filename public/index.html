@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body class="body">
+    <main class="container">
+        <i id="modo-claro" class="material-icons" >brightness_5</i>
+        <i id="modo-escuro" class="material-icons">brightness_2</i>
+        <div>
+            <h2 class="title" id="title">Chat</h2>
+        </div>
+        <div class="subtitle">
+            <p class="welcome"><span>Seja</span> Bem-vindo ao nosso chat &#128516</p>
+            <p class="welcome">Digite seu nome de usuário</p>
+        </div>
+        <form action="/chat-verified" method="post" id="form" autocomplete="off">
+            <label for="nome" class="name-user">Nome/Usuário</label>
+            <input type="text" name="nome" id="nome" class="input">
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+    </main>
+    <script>
+        const darkMode = document.getElementById("modo-escuro")
+        const lightMode = document.getElementById("modo-claro")
+
+        function changeMode(){
+            document.body.classList.toggle("dark")
+        }
+        darkMode.addEventListener("click", changeMode)
+        lightMode.addEventListener("click", changeMode)
+    </script>
+</body>
+</html>
