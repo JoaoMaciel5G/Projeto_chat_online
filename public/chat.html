@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="styles/chat.css">
+    <script src="/socket.io/socket.io.js"></script>
 </head>
-<body>
-    <div id="main">
-        <div>
-            <input type="text" placeholder="Nome/Usuário" id="name-user">
+<body class="body">
+    <main id="container">
+        <div class="icons">
+            <i class="material-icons" id="modo-claro">brightness_5</i>
+            <i class="material-icons" id="modo-escuro">brightness_2</i>
         </div>
-        <div id="chat"></div>
+        <div id="chat">
+            
+        </div>
         <div class="form">
-            <textarea id="message"></textarea>
-            <button onclick="enviarMensagem()"><i id="icon" class="material-icons">chevron_right</i><span id="msg-button">Enviar Mensagem</span></button>
+            <textarea name="message" id="message" placeholder="Digite sua mensagem"></textarea>
+            <i class="material-icons button" id="btn">keyboard_arrow_right</i>
         </div>
-    </div>
+    </main>
     <script src="chat.js"></script>
 </body>
 </html>

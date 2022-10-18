@@ -1,23 +1,28 @@
-const socket = io.connect()
-const name = document.getElementById("name-user")
-const message = document.getElementById("message")
+const darkMode = document.getElementById("modo-escuro")
+const lightMode = document.getElementById("modo-claro")
+const button = document.getElementById("btn")
 const chat = document.getElementById("chat")
+const socket = io()
 
-function enviarMensagem(){
-    const obj = {
-        author: name.value,
-        msg: message.value
-    }
+button.addEventListener("click", function(){
+    const message = document.getElementById("message")
+    socket.emit("send", message.value)
+    socket.on("send", (data, name)=>{
+        const object = {
+            data: data,
+            name: name
+        }
+        showMessage(object)
+    })
     message.value = ""
-    showMessage(obj)
-    socket.emit("msgs", obj)
-}
-
-socket.on("sendMessage", (messages)=>{
-    showMessage(messages)
 })
 
 function showMessage(mensagem){
-    const html = `<p><span><b>${mensagem.author}:</b></span> ${mensagem.msg}</p>`
-    chat.insertAdjacentHTML("beforeend", html)
+    const msg = `<p><strong>${mensagem.name}: </strong>${mensagem.data}</p>`
+    chat.insertAdjacentHTML("beforeend", msg)
 }
+function changeMode(){
+    document.body.classList.toggle("dark")
+}
+darkMode.addEventListener("click", changeMode)
+lightMode.addEventListener("click", changeMode)

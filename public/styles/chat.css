@@ -5,9 +5,125 @@
     font-family: sans-serif;
 }
 body, html{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(90deg, rgba(34,89,175,1) 4%, rgba(0,241,255,1) 100%);
 }
-body{
-    background-color: rgba(0, 0, 0, 0.747);
+.icons{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+#modo-claro{
+    display: none;
+    font-size: 30px;
+    margin: 10px 10px;
+    cursor: pointer;
+
+}
+#chat{
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    overflow-y: auto;
+    font-size: 1.2em;
+}
+#chat::-webkit-scrollbar{
+    width: 5px;
+}
+#modo-escuro{
+    display: block;
+    font-size: 30px;
+    margin: 10px 10px;
+    cursor: pointer;
+}
+#message{
+    resize: none;
+}
+#container{
+    background-color: rgba(255, 255, 255, 0.719);
+    border-radius: 10px;
+    width: 80%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-left-radius: 25px;
+}
+.form{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.form #message, .form .button{
+    align-self: flex-end;
+}
+.form #message{
+    border-radius: 10px;
+    width: 95%;
+    height: 60px;
+    font-size: 1.4em;
+    padding: 20px 15px;
+    border: none;
+    outline: none;
+    border-radius: 14em;
+}
+.form #message::-webkit-scrollbar{
+    width: 5px;
+}
+.form .button{
+    display: flex;
+    background: linear-gradient(90deg, rgba(34,175,124,1) 4%, rgba(11,158,214,1) 100%, rgba(0,26,255,1) 100%);
+    margin-bottom: 5px;
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/*Dark mode*/
+.dark{
+    background: rgba(0, 0, 0, 0.904);
+}
+.dark #container{
+    background: rgba(63, 61, 61, 0.493);
+}
+.dark #message{
+    background: rgba(92, 88, 88, 0.363);
+    color: white;
+}
+.dark #chat{
+    color: white;
+}
+.dark .button{
+    background: rgba(92, 88, 88, 0.363);
+    color: white;
+}
+.dark #modo-escuro{
+    display: none;
+}
+.dark #modo-claro{
+    display: block;
+}
+
+@media screen and (max-width: 500px){
+    #container{
+        width: 95%;
+        border-bottom-left-radius: 22px;
+        border-bottom-right-radius: 22px;
+    }
+    .form #message{
+        width: 87%;
+        height: 50px;
+        padding: 10px 10px;
+    }
+    .form .button{
+        margin-bottom: 0;
+    }
 }

@@ -8,6 +8,7 @@ const rota = app.post("/chat-verified", (request, response)=>{
     const name = request.body.nome
     if(!name){
         response.redirect("/index.html")
+        throw "Usuário com nome vazio"
     }
     response.redirect("/chat.html")
 })
