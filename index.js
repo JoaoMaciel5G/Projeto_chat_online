@@ -3,27 +3,24 @@ const app = express()
 const http = require("http")
 const server = http.createServer(app)
 const io = require("socket.io")(server)
-const bodyParser = require("body-parser")
-
-app.use(bodyParser.urlencoded({extended: true}))
+const arr = []
 app.use(express.static("public"))
+app.use(express.urlencoded({extended: true}))
 
-function checkNameMiddleware(request, response, next){
-    const name = request.body.nome
-    if(!name){
+app.post("/name-verified", async function(request, response){
+    var nome = await request.body.nome
+    arr.push(nome)
+    if(!nome){
         response.redirect("/index.html")
-        throw "Usuário nome vazio"
+    }else{
+        response.redirect("/chat.html")
     }
-    response.redirect("/chat.html")
-    next()
-}
-app.post("/name-verified", checkNameMiddleware, (request, response)=>{
-    const nome = request.body.nome
-    io.on("connection", (socket)=>{
-    socket.on("send", (data)=>{
-        socket.emit("send", data, nome)
-    })
 })
+io.on("connection", function(socket){
+    const name = arr[arr.length-1]
+    socket.on("chat message", function(msg){
+        io.emit("chat message", msg, name)
+    })
 })
 
 server.listen(process.env.PORT || 3000)
