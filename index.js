@@ -15,9 +15,9 @@ app.use(express.urlencoded({extended: true}))
 app.post("/", function(request, response){
     const nome = request.body.nome
 
+    request.session.name = nome
     if(nome){
         nameUsers.push(nome)
-        request.session.name = nome
         response.render("chat")
     }else{
         response.render("index")
@@ -25,6 +25,13 @@ app.post("/", function(request, response){
 })
 app.get("/", function(request, response){
     response.render("index")
+})
+app.get("/chat", function(request, response){
+    if(!request.session.name){
+        response.render("index")
+    }else{
+        response.render("chat")
+    }
 })
 
 app.get("/styles/chat.css", function(request, response){
@@ -35,12 +42,10 @@ app.get("/styles/index.css", function(request, response){
 })
 
 io.on("connection", function(socket){
-    const name = arr[arr.length-1]
+    const name = nameUsers[nameUsers.length-1]
+
     socket.on("chat message", function(msg){
         io.emit("chat message", msg, name)
-    })
-    socket.on("disconnect", function(){
-        arr.length = 0
     })
 })
 

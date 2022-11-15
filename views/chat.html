@@ -29,7 +29,11 @@
         const button = document.getElementById("btn")
         const chat = document.getElementById("chat")
         const message = document.getElementById('message')
-
+        function showMessages(message, name){
+            var item = document.createElement("p")
+            item.textContent = `${name}: ${message}`
+            chat.appendChild(item)
+        }
         const client = io.connect()
         button.addEventListener("click", function(){
             client.emit("chat message", message.value)
@@ -42,9 +46,7 @@
             }
         })
         client.on("chat message", function(msg, nome){
-            var item = document.createElement("p")
-            item.textContent = `${nome}: ${msg}`
-            chat.appendChild(item)
+            showMessages(msg, nome)
         })
         
         function changeMode(){
