@@ -9,7 +9,7 @@ body, html{
     height: 100%;
     display: flex;
     justify-content: center;
-    background: linear-gradient(90deg, rgba(34,89,175,1) 4%, rgba(0,241,255,1) 100%);
+    background-color: #9cc4e4;
 }
 .icons{
     display: flex;
@@ -21,7 +21,6 @@ body, html{
     font-size: 30px;
     margin: 10px 10px;
     cursor: pointer;
-
 }
 #chat{
     justify-content: flex-start;
@@ -29,7 +28,9 @@ body, html{
     height: 100%;
     padding: 10px 20px;
     overflow-y: auto;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    display: flex;
+    flex-direction: column;
 }
 #chat::-webkit-scrollbar{
     width: 5px;
@@ -42,16 +43,18 @@ body, html{
 }
 #message{
     resize: none;
+    overflow-y: hidden;
 }
 #container{
-    background-color: rgba(255, 255, 255, 0.719);
+    background-color: #e9f2f9;
     border-radius: 10px;
     width: 80%;
     margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom-left-radius: 25px;
+    border-bottom-left-radius: 26px;
+    border-bottom-right-radius: 26px;
 }
 .form{
     display: flex;
@@ -63,30 +66,50 @@ body, html{
 }
 .form #message{
     border-radius: 10px;
+    background-color: #fff;
     width: 95%;
     height: 60px;
     font-size: 1.4em;
-    padding: 20px 15px;
-    border: none;
+    color: black;
+    padding: 15px;
+    border: 2px solid #3a89c9;
     outline: none;
     border-radius: 14em;
 }
 .form #message::-webkit-scrollbar{
     width: 5px;
 }
+#btn{
+    color: white;
+}
 .form .button{
     display: flex;
-    background: linear-gradient(90deg, rgba(34,175,124,1) 4%, rgba(11,158,214,1) 100%, rgba(0,26,255,1) 100%);
+    background-color: #1b325f;
     margin-bottom: 5px;
     width: 50px;
     height: 50px;
-    margin-left: 20px;
+    margin-left: 10px;
     border-radius: 50px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
-
+p{
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 7px;
+    max-width: 400px;
+    word-break: break-word;
+}
+.you{
+    background-color:#0fc3e8;
+    align-self: flex-start;
+}
+.otherUser{
+    background-color: #010d23;
+    align-self: flex-end;
+}
 /*Dark mode*/
 .dark{
     background: rgba(0, 0, 0, 0.904);
@@ -97,6 +120,7 @@ body, html{
 .dark #message{
     background: rgba(92, 88, 88, 0.363);
     color: white;
+    border: none;
 }
 .dark #chat{
     color: white;
@@ -105,6 +129,9 @@ body, html{
     background: rgba(92, 88, 88, 0.363);
     color: white;
 }
+.dark .you{
+    background: rgb(97, 96, 96);
+}
 .dark #modo-escuro{
     display: none;
 }
@@ -112,7 +139,7 @@ body, html{
     display: block;
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 600px){
     #container{
         width: 95%;
         border-bottom-left-radius: 22px;

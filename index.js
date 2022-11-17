@@ -4,8 +4,11 @@ const http = require("http")
 const session = require("express-session")
 const server = http.createServer(app)
 const io = require("socket.io")(server)
+//const myId = require("uuid")
 const nameUsers = []
+const objectUser = []
 
+app.use("/public", express.static(__dirname + "/public"))
 app.engine('html', require('ejs').renderFile);
 app.set("view engine", "html")
 app.set("views", __dirname + "/views")
@@ -20,7 +23,7 @@ app.post("/", function(request, response){
         nameUsers.push(nome)
         response.render("chat")
     }else{
-        response.render("index")
+        response.render("login")
     }
 })
 app.get("/", function(request, response){
@@ -28,24 +31,23 @@ app.get("/", function(request, response){
 })
 app.get("/chat", function(request, response){
     if(!request.session.name){
-        response.render("index")
+        response.render("login")
     }else{
         response.render("chat")
     }
-})
-
-app.get("/styles/chat.css", function(request, response){
-    response.sendFile(__dirname + "/views/styles/chat.css")
-})
-app.get("/styles/index.css", function(request, response){
-    response.sendFile(__dirname + "/views/styles/index.css")
 })
 
 io.on("connection", function(socket){
     const name = nameUsers[nameUsers.length-1]
 
     socket.on("chat message", function(msg){
-        io.emit("chat message", msg, name)
+        const obj = {
+            user: name,
+            msg: msg,
+            id: socket.id
+        }
+        objectUser.push(obj)
+        io.emit("chat message", objectUser)
     })
 })
 
