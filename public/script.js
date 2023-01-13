@@ -17,6 +17,7 @@ function showMessages(object){
         item.classList.add("otherUser")
         item.textContent = `${object[object.length-1].user}: ${object[object.length-1].msg}`
         chat.appendChild(item)
+        return
     }
     item.classList.add("you")
     item.textContent = `${object[object.length-1].user}: ${object[object.length-1].msg}`

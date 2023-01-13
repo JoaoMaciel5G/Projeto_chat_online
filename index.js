@@ -4,7 +4,6 @@ const http = require("http")
 const session = require("express-session")
 const server = http.createServer(app)
 const io = require("socket.io")(server)
-//const myId = require("uuid")
 const nameUsers = []
 const objectUser = []
 
@@ -47,7 +46,7 @@ io.on("connection", function(socket){
             id: socket.id
         }
         objectUser.push(obj)
-        io.emit("chat message", objectUser)
+        io.sockets.emit("chat message", objectUser)
     })
 })
 
